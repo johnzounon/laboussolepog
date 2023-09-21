@@ -1,0 +1,444 @@
+{% extends 'boussole_partials/admin_public_base.html.twig' %}
+
+{% block title %}Liste carnets | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                    <h1 class="mb-1 me-3">carnet</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                Gestion des carnets au C.S.P La Boussole
+                </p>
+
+                <!-- Divider -->
+                <hr class="border-gray-300 my-6">
+
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase" id="colors">Liste carnets</h3>
+
+                <!-- Text -->
+                <p class="text-gray-700 mb-5">
+                    <a href="{{ path('app_carnet_new') }}" class="btn btn-primary">Nouveau carnet <i class="fa fa-plus-circle"></i></a>
+                </p>
+
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <p class="card-text">
+                            {% for message in app.flashes('success') %}
+
+                                <div class="alert alert-dismissible alert-success m-2">
+
+                                    {{ message }}
+
+                                </div>
+                                
+
+                            {% endfor %}
+                            <!-- Divider -->
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">1- Carnets Inscription Primaire</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_inscription_primaire %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Inscription Primaire N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">2- Carnets Inscription Collège</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_inscription_college %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Inscription Collège N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">3- Carnets Réinscription Primaire</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_reinscription_primaire %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Réinscription Primaire N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">4- Carnets Scolarité Primaire</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_scolarite_primaire %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Scolarité Primaire N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">5- Carnets Scolarité Collège</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_scolarite_college %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Scolarité Collège N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">6- Carnets Arriérés Primaire</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_arrieres_primaire %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Arriérés Primaire N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">7- Carnets Arriérés Collège</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_arrieres_college %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Arriérés Collège N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <hr class="border-gray-300 my-6">
+
+                            <!-- Heading -->
+                            <h3 class="fw-bold me-3 text-uppercase" id="colors">8- Carnets Tenues</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Année académique</th>
+                                        <th>Carnet en cours</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, carnet in carnets_tenues %}
+                                    <tr>
+                                        <td>{{key + 1}}</td>
+                                        <td>
+                                            Tenue N° {{carnet.numero}}
+                                        </td>
+                                        <td>{{ carnet.anneeAcademique.dateDebut }} - {{ carnet.anneeAcademique.dateFin }}</td>
+                                        <td>
+                                            {% if carnet.carnetEncours == true %}
+                                                <span class="text-success">Oui</span>
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-dark" href="{{ path('app_carnet_show', {'id': carnet.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ path('app_carnet_delete', { 'id' : carnet.id }) }}" onsubmit="return confirm('Suppression irréversible !!!');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carnet.id) }}">
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash text-light"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucune information n'est disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,53 @@
+
+{% extends 'boussole_partials/admin_public_base.html.twig' %}
+
+{% block title %}Edition année académique {{annee_academique.dateDebut}} - {{annee_academique.dateFin}} | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                    <h1 class="mb-1 me-3">Année académique</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                Gestion des années académiques au C.S.P La Boussole
+                </p>
+
+                <!-- Divider -->
+                <hr class="border-gray-300 my-6">
+
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase" id="colors">Editer l'année académique {{annee_academique.dateDebut}} - {{annee_academique.dateFin}} </h3>
+
+                <!-- Text -->
+                <p class="text-gray-700 mb-5">
+                    <a href="{{ path('app_annee_academique_index') }}" class="btn btn-link">Voir la liste <i class="fa fa-arrow-right"></i></a>
+                </p>
+
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <p class="card-text">
+                            {{ include('annee_academique/_form.html.twig', {'button_label': 'Modifier'}) }}
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}
+

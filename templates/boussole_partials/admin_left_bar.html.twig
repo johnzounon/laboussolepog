@@ -1,0 +1,169 @@
+<div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-bottom border-bottom-lg-0 border-right-lg border-gray-300 sidenav sidenav-left">
+
+    <div class="collapse d-lg-block" id="sidenavCollapse">
+        <div class="py-7 py-lg-9 px-lg-7">
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Bienvenue <span class="text-uppercase">{{app.user.firstname|slice(0, 1)|upper}}{{app.user.lastname|slice(0, 1)|upper}} 
+                <i class="fa fa-info-circle" title="Espace personnel de {{app.user.firstname}} {{app.user.lastname}}"></i></span>
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_dashboard')}}">Tableau de bord</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="index.html">Mon Compte</a>
+                </li>
+                <li class="list-item d-flex">
+                    <span class="badge badge-pill badge-primary-soft ms-auto align-self-center">
+                    Sécrétaire Informaticien
+                    </span>
+                </li>
+            </ul>
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Administration
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_annee_academique_index')}}">Année académique</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_carnet_index')}}">Carnets</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_cycle')}}">Cycles</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_classe')}}">Salles de classe</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_eleve')}}">Élèves</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_enseignant')}}">Enseignants</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_professeur')}}">Professeurs</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_employe')}}">Employés</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="{{path('app_admin_matiere')}}">Matières</a>
+                </li>
+            </ul>
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Cours et Évaluations
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="aos.html">Emploie du temps</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Evaluations</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Présences & Absences</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Remise de bulletins</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Examens</a>
+                </li>
+            </ul>
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Sanctions
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="aos.html">Exclusion</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Renvoi temporaire</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="choices.html">Punition</a>
+                </li>
+            </ul>
+
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Utilitaires Parents
+            </h6>
+
+            <!-- List -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="background.html">Fournitures</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="borders.html">Fiche d'inscription</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="borders.html">Fiche de réinscription</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="borders.html">Actualités</a>
+                </li>
+            </ul>
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Archives
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-6">
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Actes de naissance</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Documents extérieurs</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Rapports</a>
+                </li>
+            </ul>
+
+            <!-- Heading -->
+            <h6 class="text-uppercase fw-bold">
+                Bilan
+            </h6>
+
+            <!-- Links -->
+            <ul class="list mb-0">
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Comptabilité</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Résultats des évaluations</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="illustrations.html">Résultats des examens</a>
+                </li>
+            </ul>
+
+            
+
+        </div>
+    </div>
+
+
+    </div>

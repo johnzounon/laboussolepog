@@ -1,0 +1,86 @@
+{{ form_start(form) }}
+
+    {% for message in app.flashes('success') %}
+
+        <div class="alert alert-dismissible alert-success m-2">
+
+            {{ message }}
+
+        </div>
+        
+
+    {% endfor %}
+
+    {% if not form.vars.valid %}
+                                    
+    <div style="font-size:1em;" class="alert alert-dismissible alert-danger m-2">
+        
+        Veuillez corriger les erreurs présentes dans le formulaire!
+
+    </div>
+
+        {% for child in form.children %}
+
+            {% if child.vars.errors is defined %}
+
+                {% for error in child.vars.errors %}
+
+                    <div class="alert alert-dismissible alert-danger m-2">
+
+                        {{child.vars.label}} : {{error.message}}
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% endif %}
+
+
+        {% endfor %}
+
+
+    {% endif %}
+    
+    <div class="form-group mb-4">
+        <label>Classe de l'élève <sup class="text-danger">*</sup></label>
+        {% if ecole == 'college' %}
+            {{ form_row(form.classe_college)}}
+        {% else %}
+            {{ form_row(form.classe_primaire)}}
+        {% endif %}
+    </div>
+    <div class="form-group mb-4">
+        <label>Nom de l'élève <sup class="text-danger">*</sup></label>
+        {{ form_row(form.nom)}}
+    </div>
+    <div class="form-group mb-4">
+        <label>Prénom(s) de l'élève <sup class="text-danger">*</sup></label>
+        {{ form_row(form.prenom)}}
+    </div>
+    <div class="form-group mb-4">
+        <label>Tuteur/Tutrice de l'élève <sup class="text-danger">*</sup></label>
+        {{ form_row(form.tuteur)}}
+    </div>
+    <div class="form-group mb-4">
+        <label>Téléphone Tuteur/Tutrice <sup class="text-danger">*</sup></label>
+        {{ form_row(form.telephone)}}
+    </div>
+    <div class="form-group mb-4">
+        <label>Ram Papier A4 <sup class="text-danger">*</sup></label>
+        {{ form_row(form.avec_ram)}}
+    </div>
+
+    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+    <div class="form-group mb-4">
+        <label>Date <sup class="text-danger">*</sup></label>
+        {{ form_row(form.date)}}
+    </div>
+    <div class="form-group mb-4">
+        <label>Opérateur <sup class="text-danger">*</sup></label>
+        {{ form_row(form.agent)}}
+    </div>
+    {% endif %}
+
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

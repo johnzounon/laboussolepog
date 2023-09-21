@@ -1,0 +1,65 @@
+{% extends 'boussole_partials/admin_public_base.html.twig' %}
+
+{% block title %}Tous les carnets de Scolarité Primaire | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                    <h1 class="mb-1 me-3">Carnets de Scolarité du Primaire</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                Gestion des carnets de scolarité primaire au C.S.P La Boussole
+                </p>
+
+                <p>
+                    <a href="{{path('app_carnet_paiements_primaire')}}" class="btn btn-dark">
+                        <i class="fa fa-list-alt"></i> Liste de paiements du primaire
+                    </a>
+                </p>
+
+                
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4" id="colors">Scolarité primaire</h3>
+
+                <!-- Text -->
+                <p class="text-gray-700 mb-5">
+                Carnets de scolarité du primaire
+                </p>
+
+                <!-- Card -->
+                <div class="row">
+                    {% for carnet in carnets_scolarite_primaire %}
+                    <div class="col-6">
+                        
+                        <div class="card bg-primary">
+                            <div class="card-body">
+                                <h3 class="card-title text-body">N°{{carnet.numero}}</h3>
+                                <p class="card-text">
+                                    <h2 class="text-body text-uppercase text-light">Scolarité primaire</h2>
+                                    <h2 class="text-body text-uppercase text-light">{{carnet.anneeAcademique.dateDebut}} - {{carnet.anneeAcademique.dateFin}}</h2>
+                                </p>
+                                <a href="{{path('app_carnet_new_scolarite_primaire',{id:carnet.id})}}" class="btn btn-light text-uppercase">Choisir <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

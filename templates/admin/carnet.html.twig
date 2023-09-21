@@ -1,0 +1,95 @@
+{% extends 'boussole_partials/public_base.html.twig' %}
+
+{% block title %}Carnet | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                <h1 class="mb-1 me-3">Gestion des carnets de scolarité</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                    Gestion des carnets d'inscription, de réinscription, de tenue, d'arriérés et de paiement à la Boussole
+                </p>
+
+                <!-- Divider -->
+                <hr class="border-gray-300 my-6">
+
+                <div class="row">
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Carnet Inscription</div>
+                            <div class="card-body">
+                                Gestion des carnets inscription.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Carnet Réinscription</div>
+                            <div class="card-body">
+                                Gestion des carnets réinscription
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Carnet Scolarité</div>
+                            <div class="card-body">
+                                Gestion des carnets scolarité.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Carnet Tenue</div>
+                            <div class="card-body">
+                                Gestion des carnets tenue.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+               
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

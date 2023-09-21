@@ -1,0 +1,836 @@
+{% extends 'boussole_partials/admin_public_base.html.twig' %}
+
+{% block title %}Liste de paiements au collège | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+
+{% block javascripts %}
+<script>
+    window.onload = () => {
+        // On va chercher la région
+        let boutton_6eme = document.querySelector("#impression_6eme");
+        let boutton_5eme = document.querySelector("#impression_5eme");
+        let boutton_4eme = document.querySelector("#impression_4eme");
+        let boutton_3eme = document.querySelector("#impression_3eme");
+        let boutton_2ndes = document.querySelector("#impression_2ndes");
+        let boutton_2ndele = document.querySelector("#impression_2ndele");
+        let boutton_1eres = document.querySelector("#impression_1eres");
+        let boutton_1erele = document.querySelector("#impression_1erele");
+
+        boutton_6eme.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_5eme.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_4eme.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_3eme.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_2ndes.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_2ndele.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_1eres.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_1erele.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        
+    }
+</script>     
+{% endblock %}
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                    <h1 class="mb-1 me-3">Liste de paiements des élèves inscrits au collège</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                Gestion du paiement des élèves inscrits au collège du C.S.P La Boussole
+                </p>
+
+                
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">6ème</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_6eme')}}" target="_blank" id="impression_6eme" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 6ème</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_6eme %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 6ème</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">5ème</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_5eme')}}" target="_blank" id="impression_5eme" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 5ème</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_5eme %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 5ème</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">4ème</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_4eme')}}" target="_blank" id="impression_4eme" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 4ème</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_4eme %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 4ème</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">6ème</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_3eme')}}" target="_blank" id="impression_3eme" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 3ème</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_3eme %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 3ème</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">2nde S</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_2ndes')}}" target="_blank" id="impression_2ndes" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 2nde S</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_2ndes %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 2nde S</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">2nde LE</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_2ndele')}}" target="_blank" id="impression_2ndele" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 2nde LE</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_2ndele %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 2nde LE</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">1ère S</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_1eres')}}" target="_blank" id="impression_1eres" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 1ère S</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_1eres %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 1ère S</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">1ère LE</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_college_1erele')}}" target="_blank" id="impression_1erele" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 1ère LE</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_1erele %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 1ère LE</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+
+                
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

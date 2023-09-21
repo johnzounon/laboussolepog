@@ -1,0 +1,78 @@
+{% extends 'boussole_partials/public_base.html.twig' %}
+
+{% block title %}Connexion | C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<!-- PAGE TITLE
+================================================== -->
+<header class="py-8 py-md-11" style="background-image: none;">
+    <div class="container text-center py-xl-2">
+        <h1 class="display-4 fw-semi-bold mb-0">Espace Personnel</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-scroll justify-content-center">
+                <li class="breadcrumb-item">
+                    <a class="text-gray-800" href="{{path('boussole_index')}}">
+                        Accueil
+                    </a>
+                </li>
+                <li class="breadcrumb-item text-gray-800 active" aria-current="page">
+                    Connexion
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Img -->
+    <img class="d-none img-fluid" src="...html" alt="...">
+</header>
+<!-- LOGIN
+================================================== -->
+<div class="container mb-11">
+    <div class="row gx-0">
+        <div class="col-md-7 col-xl-4 mx-auto">
+            <!-- Login -->
+            <h3 class="mb-6">Entrez vos informations de connexion 
+            <i class="fa fa-question-circle" title="Il s'agit des informations de connexion présentes sur la fiche inscription/reinscription de votre enfant."></i>
+            </h3>
+
+            <!-- Form Login -->
+            <form class="mb-5" method="POST">
+                <!-- Email -->
+                <div class="form-group mb-5">
+                    <label for="modalSigninEmail1">
+                        Email
+                    </label>
+                    <input type="email" value="{{ last_username }}" name="email"  id="modalSigninEmail1" class="form-control" required autofocus placeholder="Entrez un email">
+                </div>
+
+                <!-- Password -->
+                <div class="form-group mb-5">
+                    <label for="modalSigninPassword1">
+                        Mot de passe
+                    </label>
+                    <input type="password" name="password" id="modalSigninPassword1" class="form-control" required placeholder="**********">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                </div>
+
+                <div class="d-flex align-items-center mb-5 font-size-sm">
+                    <div class="form-check">
+                        <input class="form-check-input text-gray-800" type="checkbox" id="autoSizingCheck1">
+                        <label class="form-check-label text-gray-800" for="autoSizingCheck1">
+                            Se rappeler de moi
+                        </label>
+                    </div>
+
+                    <div class="ms-auto">
+                        <a class="text-gray-800" href="recover.html">Mot de passe oublié ?</a>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-block btn-primary" type="submit">
+                    Connexion
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

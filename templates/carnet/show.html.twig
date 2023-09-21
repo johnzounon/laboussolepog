@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet{% endblock %}
+
+{% block body %}
+    <h1>Carnet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ carnet.id }}</td>
+            </tr>
+            <tr>
+                <th>Groupe</th>
+                <td>{{ carnet.groupe }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ carnet.numero }}</td>
+            </tr>
+            <tr>
+                <th>Carnet_encours</th>
+                <td>{{ carnet.carnetEncours ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_carnet_index') }}">back to list</a>
+
+    <a href="{{ path('app_carnet_edit', {'id': carnet.id}) }}">edit</a>
+
+    {{ include('carnet/_delete_form.html.twig') }}
+{% endblock %}

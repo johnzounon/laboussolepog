@@ -1,0 +1,80 @@
+{% extends 'boussole_partials/public_base.html.twig' %}
+
+{% block title %}Connexion | C.S.P La Boussole{% endblock %}
+
+{% block body %}
+
+<!-- PAGE TITLE
+================================================== -->
+<header class="py-8 py-md-11" style="background-image: none;">
+    <div class="container text-center py-xl-2">
+        <h1 class="display-4 fw-semi-bold mb-0">Utilisateur</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-scroll justify-content-center">
+                <li class="breadcrumb-item">
+                    <a class="text-gray-800" href="{{path('boussole_index')}}">
+                        Accueil
+                    </a>
+                </li>
+                <li class="breadcrumb-item text-gray-800 active" aria-current="page">
+                    Enregistrement
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Img -->
+    <img class="d-none img-fluid" src="...html" alt="...">
+</header>
+<!-- LOGIN
+================================================== -->
+<div class="container mb-11">
+    <div class="row gx-0">
+        <div class="col-md-7 col-xl-4 mx-auto">
+            <!-- Login -->
+            <h3 class="mb-6">Nouvel Utilisateur</h3>
+
+            <!-- Form Login -->
+            {{ form_start(registrationForm) }}
+                <!-- Email -->
+                <div class="form-group mb-5">
+                    <label for="modalSigninEmail1">
+                        Prénom
+                    </label>
+                    {{ form_row(registrationForm.firstname) }}
+                </div>
+
+                <!-- Password -->
+                <div class="form-group mb-5">
+                    <label for="modalSigninPassword1">
+                        Nom
+                    </label>
+                    {{ form_row(registrationForm.lastname) }}
+                </div>
+
+                <div class="form-group mb-5">
+                    <label for="modalSigninPassword1">
+                        Email
+                    </label>
+                    {{ form_row(registrationForm.email) }}
+                </div>
+
+                <div class="form-group mb-5">
+                    <label for="modalSigninPassword1">
+                        Mot de passe
+                    </label>
+                    {{ form_row(registrationForm.password) }}
+                </div>
+
+                
+
+                <!-- Submit -->
+                <button class="btn btn-block btn-primary" type="submit">
+                    Enregistrer
+                </button>
+            {{ form_end(registrationForm) }}
+
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

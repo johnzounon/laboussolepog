@@ -1,0 +1,108 @@
+{% extends 'boussole_partials/admin_impression.html.twig' %}
+
+{% block title %}Impression liste de paiements en 3ème | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<script>
+    window.onload = () => {
+        window.print();
+    }
+</script> 
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="">
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024</th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="text-uppercase text-center">Classe : 3ème</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th>
+                                    2ème tranche
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for key, inscrit in inscrits_3eme %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolariteColleges %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun paiement n'est disponible pour la classe de 3ème</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+            </div>
+
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

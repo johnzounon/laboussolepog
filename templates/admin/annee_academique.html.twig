@@ -1,0 +1,81 @@
+{% extends 'boussole_partials/public_base.html.twig' %}
+
+{% block title %}Année Académique | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                <h1 class="mb-1 me-3">Gestion des années académiques</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                    Gestion de l'année académique, des trimestres et des paliers à la boussole.
+                </p>
+
+                <!-- Divider -->
+                <hr class="border-gray-300 my-6">
+
+                <div class="row">
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Année académique</div>
+                            <div class="card-body">
+                                Date d'ouverture et de clotûre officiele d'une année académique.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Trimestre</div>
+                            <div class="card-body">
+                                Date d'ouverture et de clotûre officiele d'un Trimestre.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card card-border card-border-xl border-primary">
+                            <div class="card-header">Palier</div>
+                            <div class="card-body">
+                                Date d'ouverture et de clotûre officiele d'un Palier.
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-pill btn-md">
+                                continuer <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+               
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,1968 @@
+{% extends 'boussole_partials/admin_public_base.html.twig' %}
+
+{% block title %}Liste de paiements au primaire | Administration C.S.P La Boussole{% endblock %}
+
+{% block body %}
+
+{% block javascripts %}
+<script>
+    window.onload = () => {
+        // On va chercher la région
+        let boutton_3ans = document.querySelector("#impression_3ans");
+        let boutton_4ans = document.querySelector("#impression_4ans");
+        let boutton_5ans = document.querySelector("#impression_5ans");
+        let boutton_1erean = document.querySelector("#impression_1erean");
+        let boutton_2emean = document.querySelector("#impression_2emean");
+        let boutton_3emean = document.querySelector("#impression_3emean");
+        let boutton_4emean = document.querySelector("#impression_4emean");
+        let boutton_5emean = document.querySelector("#impression_5emean");
+
+        boutton_3ans.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_4ans.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_5ans.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_1erean.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_2emean.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_3emean.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_4emean.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+
+        boutton_5emean.addEventListener("click", function(event){
+            
+            var url = $(this).attr("href");
+            window.open(url);
+            event.preventDefault();
+        
+        });
+    }
+</script>     
+{% endblock %}
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'boussole_partials/admin_left_bar.html.twig' %}
+
+            <div class="col-12 col-lg-6 col-xl-8 offset-lg-3 offset-xl-2 py-7 py-lg-9 px-lg-7">
+
+                <!-- Heading -->
+                <div class="d-flex align-items-center">
+                    <h1 class="mb-1 me-3">Liste de paiements des élèves inscrits au primaire</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="font-size-lg text-gray-700">
+                Gestion du paiement des élèves inscrits au primaire du C.S.P La Boussole
+                </p>
+
+                
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">3 ans</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_3ans')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 3 ans</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_3ans %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 3 ans</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">4 ans</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_4ans')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 4 ans</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_4ans %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 4 ans</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">5 ans</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_5ans')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 5 ans</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_5ans %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 5 ans</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">1ère année</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_1erean')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 1ère année</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_1erean %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 1ère année</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">2ème année</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_2emean')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 2ème année</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_2emean %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 2ème année</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">3ème année</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_3emean')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 3ème année</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_3emean %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 3ème année</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">4ème année</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_4emean')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 4ème année</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_4emean %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 4ème année</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <hr>
+                <!-- Heading -->
+                <h3 class="fw-bold me-3 text-uppercase mt-4 bg-primary text-light p-4" id="colors">5ème année</h3>
+
+                <!-- Card -->
+                <div class="row">
+                
+                    <table class="table table-striped table-bordered table-collapsed">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Fiche de paiement pour l'année académique 2023 - 2024 <a href="{{path('app_carnet_impression_paiement_primaire_5emean')}}" target="_blank" id="impression_3ans" class="btn btn-dark">Imprimer <i class="fa fa-print"></i></a></th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="11" class="text-uppercase text-center">Classe : 5ème année</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">
+                                    N°
+                                </th>
+                                <th rowspan="2">
+                                    Noms et Prénoms
+                                </th>
+                                <th>
+                                    1ère Tranche
+                                </th>
+                                <th colspan="2">
+                                    2ème tranche
+                                </th>
+                                <th>
+                                    3ème tranche
+                                </th>
+                                <th>
+                                    4ème tranche
+                                </th>
+                                <th colspan="2">
+                                    5ème tranche
+                                </th>
+                                <th>
+                                    6ème tranche
+                                </th>
+                                <th>
+                                    7ème tranche
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SEPT
+                                </td>
+                                <td>
+                                    OCT
+                                </td>
+                                <td>
+                                    NOV
+                                </td>
+                                <td>
+                                    DEC
+                                </td>
+                                <td>
+                                    JAN
+                                </td>
+                                <td>
+                                    FEV
+                                </td>
+                                <td>
+                                    MARS
+                                </td>
+                                <td>
+                                    AVR
+                                </td>
+                                <td>
+                                    MAI
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        {% for key, inscrit in inscrits_5emean %}
+
+                            {% set montant_paiement = 0 %}
+                            {% set tarif_mensuel = 0 %}
+
+                            {% for paiement in inscrit.scolaritePrimaires %}
+                                {% set montant_paiement =+ paiement.montantChiffre %}
+                                {% set tarif_mensuel = paiement.tarifMensuel %}
+                            {% endfor %}
+
+                            {% set montant_dispo_1 = (tarif_mensuel * 2) - montant_paiement %}
+                            {% set montant_dispo_2 = (tarif_mensuel * 3) - montant_paiement %}
+                            {% set montant_dispo_3 = (tarif_mensuel * 4) - montant_paiement %}
+                            {% set montant_dispo_4 = (tarif_mensuel * 5) - montant_paiement %}
+                            {% set montant_dispo_5 = (tarif_mensuel * 6) - montant_paiement %}
+                            {% set montant_dispo_6 = (tarif_mensuel * 7) - montant_paiement %}
+                            {% set montant_dispo_7 = (tarif_mensuel * 8) - montant_paiement %}
+                            {% set montant_dispo_8 = (tarif_mensuel * 9) - montant_paiement %}
+
+                        <tr>
+                            <td>
+                                {{key + 1}}
+                            </td>
+                            <td>
+                                {{inscrit.nom}} {{inscrit.prenom}}
+                            </td>
+                            <td class="text-center">
+                                {% if montant_paiement == 0 %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 1) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > 0  and montant_paiement < (tarif_mensuel * 1) %}
+                                    {{montant_paiement|number_format(0, '', ' ')}} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 1) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 2) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 1)  and montant_paiement < (tarif_mensuel * 2) %}
+                                    {{ montant_dispo_1|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 2) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 3) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 2)  and montant_paiement < (tarif_mensuel * 3) %}
+                                    {{ montant_dispo_2|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 3) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 4) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 3)  and montant_paiement < (tarif_mensuel * 4) %}
+                                    {{ montant_dispo_3|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 4) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 5) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 4)  and montant_paiement < (tarif_mensuel * 5) %}
+                                    {{ montant_dispo_4|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 5) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 6) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 5)  and montant_paiement < (tarif_mensuel * 6) %}
+                                    {{ montant_dispo_5|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 6) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 7) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 6)  and montant_paiement < (tarif_mensuel * 7) %}
+                                    {{ montant_dispo_6|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 7) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 8) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 7)  and montant_paiement < (tarif_mensuel * 8) %}
+                                    {{ montant_dispo_7|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if montant_paiement == 0 or montant_paiement <= (tarif_mensuel * 8) %}
+                                -
+                                {% endif %}
+
+                                {% if montant_paiement >= (tarif_mensuel * 9) %}
+                                    {{tarif_mensuel|number_format(0, '', ' ')}} FCFA
+                                {% endif %}
+
+                                {% if montant_paiement > (tarif_mensuel * 8)  and montant_paiement < (tarif_mensuel * 9) %}
+                                    {{ montant_dispo_8|number_format(0, '', ' ') }} FCFA <b class="text-success">+</b>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="text-center">Aucun paiement n'est disponible pour la classe de 5ème année</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                </div>
+
+            </div>
+            {% include 'boussole_partials/admin_right_bar.html.twig' %}
+        </div> <!-- / .row -->
+    </div>
+</section>
+{% endblock %}
